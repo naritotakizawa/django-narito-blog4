@@ -1,0 +1,4 @@
+include LICENSE
+include README.md
+recursive-include nblog4/static *
+recursive-include nblog4/templates *

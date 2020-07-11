@@ -30,6 +30,8 @@ class PostList(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        if not self.request.user.is_authenticated:
+            queryset = queryset.filter(is_public=True)
         params = self.request.query_params
 
         keyword = params.get('keyword', None)
@@ -46,6 +48,12 @@ class PostList(generics.ListAPIView):
 class PostDetail(generics.RetrieveAPIView):
     queryset = Post.objects.prefetch_related('relation_posts__tags', 'comment_set__reply_set')
     serializer_class = PostSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not self.request.user.is_authenticated:
+            queryset = queryset.filter(is_public=True)
+        return queryset
 
 
 class TagList(generics.ListAPIView):

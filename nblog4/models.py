@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.db import models
-from django.shortcuts import resolve_url
 from django.utils import timezone
 import markdown
 from markdown.extensions import Extension

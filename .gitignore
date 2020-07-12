@@ -1,9 +1,3 @@
-# 後で消す
-nblog1/
-load.py
-router.py
-project/pro_settings.py
-
 .idea/
 
 # Byte-compiled / optimized / DLL files

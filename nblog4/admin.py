@@ -47,7 +47,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 def notify(modeladmin, request, queryset):
     for post in queryset:
-        post.browser_push(request)
+        post.browser_push()
 notify.short_description = '通知を送信する'
 
 

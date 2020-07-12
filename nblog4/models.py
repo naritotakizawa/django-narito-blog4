@@ -41,6 +41,7 @@ class Post(models.Model):
                 'included_segments': ['All'],
                 'contents': {'en': self.title},
                 'headings': {'en': 'ブログ'},
+                'url': settings.BLOG4_DETAIL_URL.format(self.pk),
             }
             requests.post(
                 "https://onesignal.com/api/v1/notifications",

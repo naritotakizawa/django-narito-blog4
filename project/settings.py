@@ -124,6 +124,7 @@ STATIC_URL = '/static/'
 USE_ONE_SIGNAL = False
 ONE_SIGNAL_APP_ID = None
 ONE_SIGNAL_REST_KEY = None
+BLOG4_DETAIL_URL = 'https://hoge.com/detail/{}/'
 
 if DEBUG:
     INSTALLED_APPS += ['corsheaders']

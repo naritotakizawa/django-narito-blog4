@@ -121,6 +121,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+USE_ONE_SIGNAL = False
+ONE_SIGNAL_APP_ID = None
+ONE_SIGNAL_REST_KEY = None
+
 if DEBUG:
     INSTALLED_APPS += ['corsheaders']
     MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
@@ -128,3 +132,4 @@ if DEBUG:
         'http://127.0.0.1:8080',
         'http://localhost:8080',
     )
+    CORS_ALLOW_CREDENTIALS = True

@@ -45,11 +45,18 @@ class CommentAdmin(admin.ModelAdmin):
     inlines = [ReplyInline]
 
 
+def notify(modeladmin, request, queryset):
+    for post in queryset:
+        post.browser_push(request)
+notify.short_description = '通知を送信する'
+
+
 class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'text')
     list_display = ['title', 'is_public', 'updated_at', 'created_at']
     list_filter = ['is_public', 'tags', 'created_at', 'updated_at']
     form = AdminPostCreateForm
+    actions = [notify]
 
 
 admin.site.register(Post, PostAdmin)

@@ -36,7 +36,9 @@ class PostList(generics.ListAPIView):
 
         keyword = params.get('keyword', None)
         if keyword:
-            queryset = queryset.filter(Q(title__icontains=keyword) | Q(description__icontains=keyword) | Q(text__icontains=keyword))
+            # django python のような、スペース区切りの複数キーワードに対応
+            for k in keyword.split():
+                queryset = queryset.filter(Q(title__icontains=k) | Q(description__icontains=k) | Q(text__icontains=k))
 
         tags = params.getlist('tag', None)
         if tags:

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.mail import send_mail
 from django.db.models import Q
 from rest_framework import generics
 from rest_framework.decorators import api_view
@@ -10,6 +11,7 @@ from .serializers import (
     SimplePostSerializer, TagWithPostCountSerializer, PostSerializer,
     CommentSerializer, ReplySerializer
 )
+
 
 class Pagination(PageNumberPagination):
     page_size = 10
@@ -66,9 +68,27 @@ class TagList(generics.ListAPIView):
 class CommentCreate(generics.CreateAPIView):
     serializer_class = CommentSerializer
 
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        subject = 'ブログにコメントがきました'
+        message = f'{self.object.target.title}の記事にコメントがきました。'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [settings.DEFAULT_FROM_EMAIL]
+        send_mail(subject, message, from_email, recipient_list)
+        return response
+
 
 class ReplyCreate(generics.CreateAPIView):
     serializer_class = ReplySerializer
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        subject = 'ブログに返信がきました'
+        message = f'{self.object.target.target.title}の記事に返信がきました。'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [settings.DEFAULT_FROM_EMAIL]
+        send_mail(subject, message, from_email, recipient_list)
+        return response
 
 
 @api_view()

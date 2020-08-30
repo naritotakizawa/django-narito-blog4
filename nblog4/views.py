@@ -71,7 +71,7 @@ class CommentCreate(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         subject = 'ブログにコメントがきました'
-        message = f'{self.object.target.title}の記事にコメントがきました。'
+        message = '記事にコメントがきました。管理画面から詳細を確認してください。'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [settings.DEFAULT_FROM_EMAIL]
         send_mail(subject, message, from_email, recipient_list)
@@ -84,7 +84,7 @@ class ReplyCreate(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         subject = 'ブログに返信がきました'
-        message = f'{self.object.target.target.title}の記事に返信がきました。'
+        message = '記事に返信がきました。管理画面から詳細を確認してください。'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [settings.DEFAULT_FROM_EMAIL]
         send_mail(subject, message, from_email, recipient_list)
